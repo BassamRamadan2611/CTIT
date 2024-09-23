@@ -1,0 +1,39 @@
+<div class="py-8 bg-[#f2f9ff] mb-8 transition">
+    <p-steps
+      [model]="items"
+      [readonly]="true"
+      [activeIndex]="activeIndex"
+      (activeIndexChange)="onActiveIndexChange($event)"
+    ></p-steps>
+  </div>
+  <div
+    class="flex px-20 flex-wrap"
+    [ngStyle]="{
+      'justify-content': activeIndex > 0 ? 'space-between' : 'flex-end'
+    }"
+  >
+    <button
+      *ngIf="activeIndex !== 0"
+      class="px-20 py-4 my-10 lg:my-0 bg-white text-[#0081FE] border border-[#0081FE] text-lg rounded-lg focus:outline-none"
+      (click)="goToThePrevious()"
+    >
+      Previous
+    </button>
+    <button
+      class="px-24 py-5 my-10 lg:my-0 text-lg rounded-lg focus:outline-none transition-all"
+      [ngClass]="{
+        'bg-[#0081FE] text-white': items[activeIndex]?.condition(),
+        'bg-gray-300 opacity-50': !items[activeIndex]?.condition()
+      }"
+      [disabled]="!items[activeIndex]?.condition()"
+      (click)="goToTheNext()"
+    >
+      Next
+    </button>
+  </div>
+
+
+  
+
+   <router-outlet></router-outlet>
+  

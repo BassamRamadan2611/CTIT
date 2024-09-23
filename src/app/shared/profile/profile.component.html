@@ -1,0 +1,346 @@
+<app-header></app-header>
+<div class="text-center" *ngIf="loading">
+  <app-loading-spinner></app-loading-spinner>
+
+  </div>
+
+<div class="bg-[#F8F9F9]" *ngIf="!loading">
+
+<div class="max-w-6xl mx-auto   rounded-lg pt-4" *ngFor ="let partner of partner_details">
+    <div class="flex items-center mb-5 mr-4 info">
+      <img src="assets/images/profile_img.png"  style="width: 100px;height: 100px;border-radius: 8px;" alt="Profile">
+      <div>
+      
+            <h2 class="text-xl font-semibold pl-4">{{partner.partner_name}}</h2>
+
+       
+        <div class="flex flex-row">
+            <p class="p-4"><i class="pi pi-phone"></i> {{partner.partner_phone}}</p>
+            <p class="p-4"><i class="pi pi-envelope"></i> {{partner.partner_email}}</p>
+            <p class="p-4"><i class="pi pi-briefcase"></i> {{partner.partner_company_name}}</p>
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="top-table flex justify-between pt-8 m-2  ">
+      <h3 class="text-lg font-medium ">Subscription Details</h3>
+      <button class="mb-3 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"(click)="gotoPackage()">Add new Subscribtion</button>
+  </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="grid grid-cols-6 gap-4 mb-4 font-bold bg-gray-200">
+        <div>Subscription Name</div>
+        <div>Package Name</div>
+        <div>Amount </div>
+        <div>Status</div>
+        <div>Renewal Date</div>
+        <div>DB Link </div>
+
+      </div>
+    
+
+      <div class="mb-4"  *ngFor="let subs of subscription_details">
+        <div class="grid grid-cols-6 gap-4 items-center border-b pb-2">
+          <div class="flex items-center">
+            <button class="mr-2" (click)="toggleDetails()">
+              <span [class.hidden]="showDetails">▶</span>
+              <span [class.hidden]="!showDetails">▼</span>
+            </button>
+            <span>{{subs.subs_name}}</span>
+          </div>
+          <div>{{subs.main_packages_info.name}}</div>
+          <div>{{subs.subs_amount}}</div>
+      
+          <div>{{subs.subs_state}} </div>
+          <div>{{subs.subs_renew_date }} </div>
+          <div><a style="color: rgb(11, 153, 241);" href="{{subs.db_link}}">{{subs.db_link }}</a></div>
+        
+        </div>
+      
+        <div *ngIf="showDetails" class="ml-6 mt-2">
+          <div class="grid grid-cols-3 gap-4 mb-2 bg-gray-200"  >
+            <div class="font-bold">addName </div>
+            <div class="font-bold">amount </div>
+            <div class="font-bold">description </div>
+          </div>
+
+          <div *ngFor="let subs of subscription_details" >
+            <div class="grid grid-cols-3 gap-4 mb-2">
+          <div>{{subs.main_packages_info.name}}</div>
+          <div>Amount</div>
+          <div>{{subs.main_packages_info.description}}</div>
+          </div>
+        </div>
+     
+
+      <div *ngFor="let subs of subscription_details" >
+        <div class="grid grid-cols-3 gap-4 mb-2">
+          <div>{{subs.additional_packages_info[0].name}}</div>
+          <div>ammount</div>
+          <div>{{subs.additional_packages_info[0].description}}</div>
+
+        </div>
+      </div>
+        <div class="grid grid-cols-3 gap-4 mb-2 bg-gray-200"  >
+          <div class="font-bold">Additional count</div>
+          <div class="font-bold">Default count</div>
+          <div class="font-bold"> Total count</div>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mb-2" *ngFor="let subs of subscription_details" >
+          <div>{{subs.users_details.users_count.additional_count}}</div>
+          <div>{{subs.users_details.users_count.default_count}}</div>
+          <div>{{subs.users_details.users_count.total_count}}</div>
+
+
+
+          </div>
+
+
+
+      <button class="text-blue-500" (click)="gotoadd()">new Add +</button>
+
+</div>
+
+      </div>
+
+    </div>
+
+    <!--
+     <div class=" conatiner max-w-6xl mx-auto ">
+        <div class="top-table flex justify-between pt-8 m-2  ">
+            <h3 class="text-lg font-medium ">Subscription Details</h3>
+            <button class="mb-3 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"(click)="getDataProfile()">Add new Subscribtion</button>
+        </div>
+        <div class="max-w-6xl mx-auto">
+            <div class=" bg-white  rounded-lg pt-5 m-5 shadow-lg">
+      <table class="min-w-full rounded-lg shadow-lg">
+        <thead >
+          <tr>
+            <th class="w-1/6 p-3 text-left">Subscription Name</th>
+            <th class="w-1/6 p-3 text-left">Package Name</th>
+            <th class="w-1/6 p-3 text-left">Amount</th>
+            <th class="w-1/6 p-3 text-left">Status</th>
+            <th class="w-1/6 p-3 text-left">Renewal Date</th>
+            <th class="w-1/6 p-3 text-left">DB Link</th>
+
+          </tr>
+        </thead>
+        <tbody>
+   <ng-container *ngFor="let subs of subscription_details">
+    <tr class="border-t">
+      <td class="p-3 flex items-center">
+        <span>{{subs.subs_name}}</span>
+      </td>
+      <td class="p-3">
+        <select class="mt-1 block w-full border border-gray-300 rounded py-2 px-3">
+          <option>Monthly</option>
+        </select>
+      </td>
+      <td class="p-3">
+      </td>
+      <td class="p-3 ammount">
+        $52 + (5 + 5)$
+      </td>
+      <td class="p-3">
+      </td>
+    </tr>
+   </ng-container>
+        
+          <tr class="bg-gray-50">
+            <th class="w-1/6 p-3 ">Add New</th>
+            <th class="w-1/6 p-3 ">Amount</th>
+            <th class="w-1/6 p-3 ">Details </th>
+            <th class="w-1/6 p-3 "></th>
+          </tr>
+          <tr class="">
+            <td class="p-3 text-center">
+              Users
+            </td>
+            <td class="p-3 text-center">
+              Free
+            </td>
+            <td class="p-3 text-center">
+              Users
+            </td>
+            <td class="p-3 text-center">
+              <button class="BtnUpgrade">Upgrade</button>
+            </td>
+        </tr>
+       
+
+          
+         
+        
+          <tr class="border-t">
+            <td class="p-3 flex items-center">
+              <input type="checkbox" class="mr-2">
+              <span>Package B</span>
+            </td>
+            <td class="p-3">
+              <select class="mt-1 block w-full border border-gray-300 rounded py-2 px-3">
+                <option>Monthly</option>
+              </select>
+            </td>
+            <td class="p-3">
+              <input type="date" class="mt-1 block w-full border border-gray-300 rounded py-2 px-3">
+            </td>
+            <td class="p-3 ammount">
+              $122
+            </td>
+            <td class="p-3">
+              <button class="RenewBtn">Renew</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 flex items-center">
+              <input type="checkbox" class="mr-2">
+              <span>Package C</span>
+            </td>
+            <td class="p-3">
+              <select class="mt-1 block w-full border border-gray-300 rounded py-2 px-3">
+                <option>Monthly</option>
+              </select>
+            </td>
+            <td class="p-3">
+              <input type="date" class="mt-1 block w-full border border-gray-300 rounded py-2 px-3">
+            </td>
+            <td class="p-3 ammount">
+              $122
+            </td>
+            <td class="p-3">
+              <button class="RenewBtn">Renew</button>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+    -->
+   
+  
+
+
+
+
+<!--second -->
+<div class="max-w-6xl mx-auto mb-5 pb-5">
+    <div class="max-w-6xl mx-auto">
+        
+        <div class=" bg-white  rounded-lg pt-5 m-5 shadow-lg">
+            <div class="flex justify-between top">
+                <h1>Billing History</h1>
+                <button class="ml-auto btn-export flex flex-row mb-2 ">
+                    Export
+                    <img src="assets/images/export.png" class="">
+                  </button>
+
+            </div>
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 border-b-2 ">
+                            Status
+                        </th>
+                        <th class="px-5 py-3 border-b-2">
+                            Invoice
+                        </th>
+                        <th class="px-5 py-3 border-b-2 ">
+                            Date
+                        </th>
+                        <th class="px-5 py-3 border-b-2 ">
+                            Amount
+                        </th>
+                        <th class="px-5 py-3 border-b-2 ">
+                            Pay
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let bill of billing_history">
+                    <tr>
+                        <td class="px-5 py-5  bg-white text-sm text-center">
+                            <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 p-2"></span>
+                                <span class="relative">{{bill.bill_state}}</span>
+                            </span>
+                        </td>
+                        <td class="px-5 py-5  bg-white text-sm text-center">
+                            {{bill.bill_name}}
+                        </td>
+                        <td class="px-5 py-5  bg-white text-sm text-center">
+                           {{bill.bill_creation_date}}
+                        </td>
+                        <td class="px-5 py-5  bg-white text-sm text-center">
+                            {{bill.bill_amount}}
+                        </td>
+                        <td class="px-5 py-5  bg-white text-sm text-center">
+                            <button class=" px-4 py-2 rounded" (click)="goToPayment()">Upload a Receipt</button>
+                        </td>
+                    </tr>
+              
+                    <!-- Repeat similar rows as needed -->
+                </tbody>
+            </table>
+           <div class="flex items-center justify-center mt-4 p-4 pignation">
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  "><img src="assets/images/arrow-left.png" style="width: 10px; height: 20px;"></a>
+    <a href="#" class="px-3 py-1 bg-[#002b54] text-white   hover:bg-[#002b54] hover:text-white">1</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  hover:bg-[#002b54] hover:text-white">2</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  hover:bg-[#002b54] hover:text-white">3</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  hover:bg-[#002b54] hover:text-white">5</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  hover:bg-[#002b54] hover:text-white">6</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  hover:bg-[#002b54] hover:text-white">7</a>
+    <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700  "><img src="assets/images/arrow-right.png" style="width: 10px; height: 20px;"></a>
+
+</div>
+        </div>
+    </div>
+</div>
+
+<!--third-->
+
+
+<div class="max-w-6xl mx-auto mb-5 pb-5">
+    <div class="max-w-6xl mx-auto">
+        <div class=" bg-white  rounded-lg p-5 m-5 shadow-lg">
+            <div class="flex items-center justify-between">
+                <div class="flex flex-row p-2">
+                <div class="text-lg font-semibold p-2">Enable auto renew </div>
+                    <div class=" text-blue-500 p-2"><a href="#">(renews on May 2nd, 2023)</a></div>
+
+                </div>
+                  <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
+                    <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                  </div>
+                </div>
+       
+              
+              <p class="mt-2 text-gray-600 p-2">will renew your subscription auto, if the current plan expires, however; this may prevent you from:</p>
+              <div class="mt-4 flex space-x-4 p-2">
+                <div class="flex items-center px-4 py-2 bg-gray-100 rounded-md">
+                  <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" class="w-20 h-20" />
+                  <span class="ml-2 text-gray-700">**** 2315</span>
+                </div>
+                <div class="flex items-center px-4 py-2 bg-gray-100 rounded-md">
+                  <img src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" class="w-20 h-20" />
+                  <span class="ml-2 text-gray-700">**** 2315</span>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+        </div>
+            
+
+
+
+            
+        </div>
+
+
+      
+        <app-footer></app-footer>
+
+

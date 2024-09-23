@@ -1,0 +1,55 @@
+<!-- contact section -->
+<div
+  id="contactSection"
+  class="mb-5 px-4 lg:px-16 flex gap-3 flex-col lg:flex-row"
+>
+  <div
+    class="bg-[#0081FE] px-11 flex justify-center flex-col lg:mt-24 py-10 lg:py-36 rounded-3xl custom-bg w-full"
+  >
+    <h1 class="uppercase text-2xl md:text-4xl text-white pb-4">Contact Us</h1>
+    <p class="text-white max-w-[557px] lg:text-lg text-base">
+      We would love to hear from you! Whether you have a question, feedback, or
+      simply want to say hello, feel free to reach out to us using the contact
+      information below. Our dedicated team is here to assist you and provide
+      the information you need
+    </p>
+  </div>
+  <div
+    class="flex h-fit flex-col right-48 items-start shadow-lg bg-[#eff6ff] rounded-lg p-7 justify-between md:block lg:absolute z-20"
+  >
+    <form action="" method="post" class="p-2 w-full h-full">
+      <div class="mt-5">
+        <input
+          class="w-full"
+          placeholder="name"
+          pInputText
+          id="name"
+          [(ngModel)]="value"
+        />
+      </div>
+      <div class="mt-5">
+        <input
+          class="w-full"
+          placeholder="email"
+          pInputText
+          id="email"
+          [(ngModel)]="value"
+        />
+      </div>
+      <div class="mt-5">
+        <textarea
+          placeholder="message"
+          class="w-full h-[200px] resize-none"
+          rows="5"
+          cols="30"
+          pInputTextarea
+        ></textarea>
+      </div>
+      <div class="mt-2 lg:w-[428px]">
+        <button class="rounded-lg py-3 px-10 bg-blue-500 text-white">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

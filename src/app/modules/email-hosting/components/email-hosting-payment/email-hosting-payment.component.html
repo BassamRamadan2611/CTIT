@@ -1,0 +1,111 @@
+<div class="flex items-center justify-between mb-8 px-20 pt-5">
+    <form
+      class="flex self-start gap-5 flex-col"
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="flex items-center gap-3">
+        <div *ngFor="let category of categories" class="flex items-center">
+          <p-radioButton
+            [inputId]="category.key"
+            [value]="category"
+            formControlName="selectedCategory"
+          ></p-radioButton>
+          <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+        </div>
+      </div>
+  
+      <div *ngIf="selectedCategory && selectedCategory.key === 'C'">
+        <label
+          for="dropzone-file"
+          class="relative flex flex-col items-center justify-center w-[450px] h-[300px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        >
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg
+              class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 16"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+              />
+            </svg>
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <span class="font-semibold">Click to upload</span> or drag and drop
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              SVG, PNG, JPG or GIF (MAX. 800x400px)
+            </p>
+          </div>
+          <input
+            id="dropzone-file"
+            type="file"
+            class="hidden"
+            (change)="onFileSelected($event)"
+          />
+          <div
+            *ngIf="uploadedImageUrl"
+            class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 bg-cover bg-center dark:bg-gray-800 dark:bg-opacity-80 dark:bg-cover dark:bg-center"
+          >
+            <img
+              [src]="uploadedImageUrl"
+              alt="Uploaded Image"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+        </label>
+      </div>
+  
+      <div
+        *ngIf="selectedCategory && selectedCategory.key === 'O'"
+        class="online-component"
+      >
+        <!-- Add your online component content here -->
+        <p>Online Payment Selected</p>
+      </div>
+  
+      <button
+        *ngIf="selectedCategory && selectedCategory.key === 'C'"
+        type="submit"
+        class="mt-4 bg-blue-500 w-full text-white py-2 px-4 rounded self-center"
+      >
+        Confirm
+      </button>
+    </form>
+  
+    <div
+      *ngIf="selectedCategory && selectedCategory.key === 'C'"
+      class="w-[300px] flex flex-col gap-5 mx-auto"
+    >
+      <h2 class="font-semibold">Summary</h2>
+      <div
+        class="text-[#8D8D8D] border-b-2 border border-[#DCDCDC] border-t-0 border-e-0 border-s-0 pb-5"
+      >
+        <p class="flex justify-between">
+          <span>Subtotal</span>
+          <span>500 $</span>
+        </p>
+        <p class="flex justify-between">
+          <span>Subtotal</span>
+          <span>500 $</span>
+        </p>
+        <p class="flex justify-between">
+          <span>Subtotal</span>
+          <span>500 $</span>
+        </p>
+      </div>
+      <div class="font-semibold">
+        <p class="flex justify-between">
+          <span>Total</span>
+          <span>500 $</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  

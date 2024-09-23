@@ -1,0 +1,48 @@
+<div class="flex items-center flex-col mb-8">
+    <h1 class="text-2xl mb-5 font-medium">
+      What You Need To add <span class="text-[#0081FE]">(not required)</span>
+    </h1>
+    <p class="text-[#8D8D8D] text-base">
+      if you want to add more capacities or number of employees
+    </p>
+  </div>
+  
+  <div class="pb-10 px-2 gap-10 flex justify-center flex-wrap mx-auto">
+    <div
+      *ngFor="let card of cards"
+      class="card bg-white flex flex-col gap-5 border border-[#DCDCDC] rounded-lg py-5 px-7 w-[355px]"
+      [ngStyle]="
+        card.selected
+          ? { 'background-color': '#f2f8ff', 'border-color': '#0081FE' }
+          : {}
+      "
+    >
+      <div class="title flex flex-col justify-center items-center">
+        <h2 class="py-2">{{ card.name }}</h2>
+        <p class="text-[#0081FE] font-medium">
+          {{ card.price | currency : card.currency
+          }}<span class="text-xs text-[#8D8D8D]"> / monthly</span>
+        </p>
+      </div>
+      <div class="flex items-start gap-2">
+        <i class="pi pi-check-circle" style="color: #0081fe"></i>
+  
+        <p class="text-[#002B54] font-semibold text-sm">{{ card.description }}</p>
+      </div>
+      <button
+        class="rounded-xl mt-7 py-3 px-2 min-w-36 text-white"
+        [ngClass]="{
+          'bg-[#002b54]': card.selected,
+          'bg-blue-500': !card.selected
+        }"
+        (click)="toggleSelection(card)"
+      >
+        {{ card.selected ? "Selected" : "Select" }}
+      </button>
+    </div>
+  </div>
+  
+  <div class="flex justify-center">
+    <button class="bg-blue-500 p-4 text-white text-center "> Save Adds</button>
+
+  </div>
